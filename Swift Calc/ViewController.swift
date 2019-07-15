@@ -44,22 +44,48 @@ class ViewController: UIViewController {
     }
 
     // connected to every single digit button from 0 to 9
-    @IBAction func digitPressedButton(_ sender: Any) {
+    @IBAction func digitPressedButton(_ sender: AnyObject) {
         
+        //gets the current value of button pressed
+        let digit = sender.currentTitle!
+        // gets the digit value and adds it into our labels text
+        outputLabel.text = isFirstDigit ? digit : outputLabel.text! + digit!
+        // next time you place another digit its no longer our first digit
+        isFirstDigit = false
         
     }
-    // C - Cancel button
+    // C - Cancel/Clear button
     @IBAction func cancelButton(_ sender: Any) {
-        
+        // clears the value in the label
+        displayValue = 0
     }
     
     // Math operations Buttons, +, -, *, /
-    @IBAction func mathOperationButton(_ sender: Any) {
+    @IBAction func mathOperationButton(_ sender: AnyObject) {
         
+        // current value of the operation + * / or -
+        operation2 = sender.currentTitle!
+        operation1 = displayValue
+        isFirstDigit = true
     }
     
     // Equal button
     @IBAction func calculationButton(_ sender: Any) {
+        
+        // does the math operation chosen
+        switch operation2 {
+        case "+":
+            displayValue += operation1
+        case "-":
+            displayValue = operation1 - displayValue
+        case "*":
+            displayValue *= operation1
+        case "/":
+            displayValue = operation1 / displayValue
+            
+        default:
+            break
+        }
         
     }
     
